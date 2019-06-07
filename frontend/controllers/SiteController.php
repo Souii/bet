@@ -4,6 +4,8 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Match;
 use yii\web\Controller;
+use DateTime;
+use DateInterval;
 
 
 /**
@@ -19,7 +21,7 @@ class SiteController extends Controller
      */
      public function actionIndex()
      {
-         $matches = Match::find()->all();
+         $matches = $this->getUpcomingMatches();
 
          return $this->render('index', [
            'matches' => $matches,
@@ -29,12 +31,25 @@ class SiteController extends Controller
 
      public function actionDiscipline($id)
      {
-       $matches = Match::findAll([
-         'discipline' => $id
-       ]);
+       $matches = $this->getUpcomingMatches($id);
 
        return $this->render('index', [
          'matches' => $matches,
        ]);
+     }
+     
+     private function getUpcomingMatches($id=null)
+     {
+       $currenDate = new DateTime();
+       $upcoming = (new DateTime())->add(new DateInterval('P30D'));
+       $matches = Match::find()->where(['between', 'start_date', $currenDate->format('Y-m-d'), $upcoming->format('Y-m-d') ]);
+       
+       if ($id !== null)
+       {
+         $matches = $matches->andWhere(['discipline' => $id])->all();
+       }
+       else $matches = $matches->all();
+       
+       return $matches;
      }
 }

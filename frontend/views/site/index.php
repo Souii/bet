@@ -7,9 +7,31 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="body-content">
-        <?php foreach ($matches as $match): ?>
-          <p><?=$match->team_1?> <b><?=$match->start_date?> </b> <?=$match->team_2?> </p>
-        <?php endforeach;?>
+      <div class="container">
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Team 1</th>
+                <th scope="col">Start date</th>
+                <th scope="col">Team 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($matches as $match): ?>
+              <tr>
+                <td><?=$match->team_1?></td>
+                <td><?=$match->start_date?></td>
+                <td><?=$match->team_2?></td>
+              </tr>
+
+            <?php endforeach;?>
+            </tbody>
+          </table>
+      </div>
+
+
+
 
     </div>
 </div>
