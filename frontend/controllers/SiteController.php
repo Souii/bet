@@ -6,6 +6,7 @@ use frontend\models\Match;
 use yii\web\Controller;
 use DateTime;
 use DateInterval;
+use Carbon\Carbon;
 
 
 /**
@@ -38,17 +39,17 @@ class SiteController extends Controller
        ]);
      }
      
-     private function getUpcomingMatches($id=null)
+     private function getUpcomingMatches($discipline=null)
      {
-       $currenDate = new DateTime();
-       $upcoming = (new DateTime())->add(new DateInterval('P30D'));
-       $matches = Match::find()->where(['between', 'start_date', $currenDate->format('Y-m-d'), $upcoming->format('Y-m-d') ]);
+       $current = Carbon::now();
+       $upcoming = (Carbon::now())->add('30 days');
+       $matches = Match::find()->where(['between', 'start_date', $current->format('Y-m-d H:i'), $upcoming->format('Y-m-d H:i') ]);
        
-       if ($id !== null)
+       if ($discipline !== null)
        {
-         $matches = $matches->andWhere(['discipline' => $id])->all();
+         $matches = $matches->andWhere(['discipline' => $discipline])->orderBy('start_date')->all();
        }
-       else $matches = $matches->all();
+       else $matches = $matches->orderBy('start_date ASC')->all();
        
        return $matches;
      }

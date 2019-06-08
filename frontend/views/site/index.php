@@ -21,7 +21,7 @@ $this->title = 'My Yii Application';
               <?php foreach ($matches as $match): ?>
               <tr>
                 <td><?=$match->team_1?></td>
-                <td><?=$match->start_date?></td>
+                <td><?=$match->getDate()?> | <?=$match->getTime()?></td>
                 <td><?=$match->team_2?></td>
               </tr>
 
