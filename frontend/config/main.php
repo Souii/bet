@@ -10,6 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
@@ -43,7 +44,8 @@ return [
             'showScriptName' => false,
             'rules' => [
               '' => 'site/index',
-              'discipline/<id:\d+>' => '/site/discipline'
+              'discipline/<id:\d+>' => '/site/discipline',
+              'bet/step-one/<id:\d+>' => '/bet/step-one'
             ],
         ],
 

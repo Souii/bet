@@ -4,9 +4,8 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Match;
 use yii\web\Controller;
-use DateTime;
-use DateInterval;
 use Carbon\Carbon;
+use yii\web\NotFoundHttpException;
 
 
 /**
@@ -14,6 +13,15 @@ use Carbon\Carbon;
  */
 class SiteController extends Controller
 {
+  
+    public function actions()
+     {
+         return [
+             'error' => [
+                 'class' => 'yii\web\ErrorAction',
+             ],
+         ];
+     }
 
     /**
      * Displays homepage.
@@ -22,7 +30,7 @@ class SiteController extends Controller
      */
      public function actionIndex()
      {
-         $matches = $this->getUpcomingMatches();
+         $matches = Match::find()->upcoming()->orderBy('start_date ASC')->all();
 
          return $this->render('index', [
            'matches' => $matches,
@@ -32,25 +40,13 @@ class SiteController extends Controller
 
      public function actionDiscipline($id)
      {
-       $matches = $this->getUpcomingMatches($id);
+       if(!Match::isCorrectDiscipline($id))
+        throw new NotFoundHttpException("Страница не найдена.");
+        
+       $matches = Match::find()->upcoming($id)->orderBy('start_date ASC')->all();
 
        return $this->render('index', [
          'matches' => $matches,
        ]);
-     }
-     
-     private function getUpcomingMatches($discipline=null)
-     {
-       $current = Carbon::now();
-       $upcoming = (Carbon::now())->add('30 days');
-       $matches = Match::find()->where(['between', 'start_date', $current->format('Y-m-d H:i'), $upcoming->format('Y-m-d H:i') ]);
-       
-       if ($discipline !== null)
-       {
-         $matches = $matches->andWhere(['discipline' => $discipline])->orderBy('start_date')->all();
-       }
-       else $matches = $matches->orderBy('start_date ASC')->all();
-       
-       return $matches;
      }
 }
