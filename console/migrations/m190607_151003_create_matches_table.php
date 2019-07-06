@@ -14,11 +14,11 @@ class m190607_151003_create_matches_table extends Migration
     {
         $this->createTable('{{%matches}}', [
             'id' => $this->primaryKey(),
-            'discipline' => $this->integer()->notNull(),
+            'discipline' => $this->tinyInteger()->notNull(),
             'team_1' => $this->string()->notNull(),
             'team_2' => $this->string()->notNull(),
             'start_date' => $this->dateTime()->notNull(),
-            'outcome' => $this->string()
+            'outcome' => $this->tinyInteger()
         ]);
     }
 

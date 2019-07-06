@@ -5,63 +5,63 @@ namespace frontend\models;
 use yii\db\ActiveRecord;
 use frontend\components\validators\PhoneNumberValidator;
 
+/**
+ * This is the model class for table "{{%phones}}".
+ *
+ * @property int $id
+ * @property int $match_id
+ * @property string $phone_number
+ * @property int $amount
+ * @property int $outcome
+ */
 class Bet extends ActiveRecord
 {
-  const OUTCOME_WIN_1 = 1;
-  const OUTCOME_WIN_2 = 2;
-  const OUTCOME_DRAW = 3;
-  const SCENARIO_STEP_ONE = 'step one';
-  const SCENARIO_STEP_TWO = 'step two';
-  const SCENARIO_AGREEMENT = 'agreement';
-  const SCENARIO_DEFAULT = 'default';
+    const OUTCOME_WIN_1 = 1;
+    const OUTCOME_WIN_2 = 2;
+    const OUTCOME_DRAW = 3;
+    const SCENARIO_FIRST_STEP = 'step one';
+    const SCENARIO_SECOND_STEP = 'step two';
+    const SCENARIO_DEFAULT = 'default';
 
-  public $agree;
+    public $agree;
 
-  public function scenarios()
-  {
-    return [
-      self::SCENARIO_STEP_ONE => ['outcome', 'match_id'],
-      self::SCENARIO_STEP_TWO => ['amount', 'phone_number'],
-      self::SCENARIO_AGREEMENT => ['agree'],
-      self::SCENARIO_DEFAULT => ['match_id', 'outcome', 'phone_number', 'amount'],
-    ];
-  }
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_FIRST_STEP => ['outcome', 'match_id'],
+            self::SCENARIO_SECOND_STEP => ['amount', 'phone_number', 'agree'],
+            self::SCENARIO_DEFAULT => ['match_id', 'outcome', 'phone_number', 'amount'],
+        ];
+    }
 
-  /**
-     * {@inheritdoc}
-     */
-  public function rules()
-  {
-      return [
-          [['match_id', 'amount', 'phone_number'], 'required'],
+    /**
+       * {@inheritdoc}
+       */
+    public function rules()
+    {
+        return [
+            [['match_id', 'amount', 'phone_number'], 'required'],
 
-          ['outcome', 'required', 'message' => 'Выберите исход, на который вы хотите сделать ставку'],
+            ['match_id', 'exist', 'targetClass' => Match::class, 'targetAttribute' => ['match_id' => 'id']],
+            ['outcome', 'required', 'message' => 'Выберите исход, на который вы хотите сделать ставку'],
+            ['outcome', 'in', 'range' => [Bet::OUTCOME_WIN_1, Bet::OUTCOME_WIN_2, Bet::OUTCOME_DRAW]],
 
-          ['agree', 'required', 'message' => 'Вы должны принять пользовательское соглашение'],
-          ['agree', 'compare', 'compareValue' => true],
+            ['phone_number', 'trim'],
+            ['phone_number', 'number'],
+            ['phone_number', 'string', 'length' => 10],
+            ['phone_number', PhoneNumberValidator::className()],
+            ['amount', 'number', 'min' => 100, 'max' => 1000, 'integerOnly' => true],
+            ['agree', 'required', 'message' => 'Вы должны принять пользовательское соглашение'],
+            ['agree', 'compare', 'compareValue' => true],
+        ];
+    }
 
-          ['phone_number', 'trim'],
-          ['phone_number', 'number'],
-          ['phone_number', 'string', 'length' => [11, 12]],
-          ['phone_number', PhoneNumberValidator::className()],
-
-          ['amount', 'integer'],
-          ['match_id', 'exist', 'targetClass' => Match::class, 'targetAttribute' => ['match_id' => 'id']],
-          ['outcome', 'in', 'range' => [Bet::OUTCOME_WIN_1, Bet::OUTCOME_WIN_2, Bet::OUTCOME_DRAW]],
-      ];
-  }
-
-  public function attributeLabels()
-  {
-    return [
-      'outcome' => 'Исход',
-      'amount' => 'Сумма',
-      'phone_number' => 'Номер телефона'
-    ];
-  }
-
-  public function calculateWinnings($coefficient)
-  {
-    return intval($this->amount * $coefficient);
-  }
+    public function attributeLabels()
+    {
+        return [
+            'outcome' => 'Исход',
+            'amount' => 'Сумма',
+            'phone_number' => 'Номер телефона'
+        ];
+    }
 }

@@ -45,7 +45,7 @@ return [
             'rules' => [
               '' => 'site/index',
               'discipline/<id:\d+>' => '/site/discipline',
-              'bet/step-one/<id:\d+>' => '/bet/step-one'
+              'bet/first-step/<id:\d+>' => '/bet/first-step'
             ],
         ],
 

@@ -29,7 +29,7 @@ $this->title = 'My Yii Application';
                 <td><?=$match->getDate()?></td>
                 <td><?=$match->getTime()?></td>
 
-                <td><a href="<?= Url::to(['bet/step-one/' . $match->id])?>" class="btn btn-primary m-0">Сделать ставку</a></td>
+                <td><a href="<?= Url::to(['bet/first-step/' . $match->id])?>" class="btn btn-primary m-0">Сделать ставку</a></td>
 
               </tr>
 

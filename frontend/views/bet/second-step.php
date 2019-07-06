@@ -16,6 +16,8 @@ $this->title = 'My Yii Application';
 
                 <?= $form->field($model, 'amount')->textInput() ?>
 
+                <?= $form->field($model, 'agree')->checkbox(['label' => 'Я согласен с условиями пользовательского соглашения', 'checked' => true]) ?>
+
                 <div class="form-group">
                     <?= Html::submitButton('Продолжить', ['class' => 'btn btn-primary', 'name' => 'confirm-button']) ?>
                 </div>

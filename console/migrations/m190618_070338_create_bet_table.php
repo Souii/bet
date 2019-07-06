@@ -17,7 +17,7 @@ class m190618_070338_create_bet_table extends Migration
             'match_id' => $this->integer()->notNull(),
             'phone_number' => $this->string()->notNull(),
             'amount' => $this->integer()->notNull(),
-            'outcome' => $this->integer()->notNull()
+            'outcome' => $this->tinyInteger()->notNull()
         ]);
     }
 
