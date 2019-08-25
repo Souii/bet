@@ -30,10 +30,18 @@ class FinishMatchForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'firstTeamScore' => 'Счет ' . $this->match->details->first_team,
+            'secondTeamScore' => 'Счет ' . $this->match->details->second_team
+        ];
+    }
+
     public function validateOutcome($attribute, $params)
     {
         if (!in_array($this->outcome, $this->match->getOutcomes())) {
-            $this->addError($attribute, 'Incorrect outcome');
+            $this->addError($attribute, 'Некорректный исход');
         }
     }
 

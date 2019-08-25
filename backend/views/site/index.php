@@ -22,5 +22,13 @@ $this->title = 'Yiibet Dashboard';
         <?= Html::a('+ Добавить матч', ['/match/add'], ['class' => 'btn btn-success']) ?>
     </div>
 
+    <div class="col-lg-4" style="border:0.1em solid black; padding: 1em; margin: 0.5em">
+        <h3>Ставки</h3>
+        <?= Html::a('Список', ['/site/bets'], ['class' => 'btn btn-primary']) ?>
+        <hr/>
+
+        <p>Можно только смотреть</p>
+    </div>
+
 
 </div>

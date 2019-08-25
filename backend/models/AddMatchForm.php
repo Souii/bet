@@ -26,10 +26,24 @@ class AddMatchForm extends Model
             [['firstTeam', 'secondTeam', 'eventDate', 'eventTime', 'firstTeamCoef', 'secondTeamCoef', 'drawCoef'], 'trim'],
             ['category', 'exist', 'targetClass' => Category::className(), 'targetAttribute' => ['category' => 'id']],
             [['firstTeam', 'secondTeam'], 'string'],
-            [['firstTeamCoef', 'secondTeamCoef', 'drawCoef'], 'double', 'min' => 0],
+            [['firstTeamCoef', 'secondTeamCoef', 'drawCoef'], 'double', 'min' => 1],
             ['eventDate', 'date', 'format' => 'yyyy-mm-dd'],
             ['eventTime', 'date', 'format' => 'H:i'],
             [['eventDate', 'eventTime'], 'validateEventDateTime']
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'category' => 'Вид спорта',
+            'firstTeam' => 'Первая команда',
+            'firstTeamCoef' => 'Коэффициент на первую команду',
+            'secondTeam' => 'Вторая команда',
+            'secondTeamCoef' => 'Коэффициент на вторую команду',
+            'drawCoef' => 'Коэффициент на ничью',
+            'eventDate' => 'Дата начала',
+            'eventTime' => 'Время начала',
         ];
     }
 

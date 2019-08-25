@@ -13,7 +13,7 @@ $this->title = 'Categories';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Add category', ['add'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить категорию', ['add'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="col-md-2">

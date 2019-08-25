@@ -23,7 +23,16 @@ class ChangeCoefForm extends Model
     {
         return [
             [['firstTeamCoef', 'secondTeamCoef', 'drawCoef'], 'required'],
-            [['firstTeamCoef', 'secondTeamCoef', 'drawCoef'], 'double', 'min' => 0],
+            [['firstTeamCoef', 'secondTeamCoef', 'drawCoef'], 'double', 'min' => 1],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'firstTeamCoef' => 'Коэффициент ' . $this->match->details->first_team,
+            'secondTeamCoef' => 'Коэффициент ' . $this->match->details->second_team,
+            'drawCoef' => 'Коэффициент ' . Match::OUTCOME_DRAW
         ];
     }
 

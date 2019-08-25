@@ -5,8 +5,9 @@ use yii\helpers\ArrayHelper;
 use common\models\Bet;
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Изменить коэффициенты матча';
 ?>
+<h1><?= Html::encode($this->title) ?></h1>
     <div class="row">
         <div class="col-md-4">
           <?php $form = ActiveForm::begin(); ?>

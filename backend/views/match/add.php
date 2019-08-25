@@ -4,8 +4,9 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Добавить матч';
 ?>
+<h1><?= Html::encode($this->title) ?></h1>
     <div class="row">
         <div class="col-md-4">
           <?php $form = ActiveForm::begin(); ?>

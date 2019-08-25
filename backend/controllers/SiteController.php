@@ -7,6 +7,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\Category;
+use common\models\Bet;
 
 /**
  * Site controller
@@ -62,6 +63,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionBets()
+    {
+        $bets = Bet::find()->all();
+        return $this->render('bets', [
+            'bets' => $bets
+        ]);
     }
 
     /**

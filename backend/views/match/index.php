@@ -19,14 +19,14 @@ $this->title = 'Все матчи';
     <table class="table">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">Discipline</th>
-                <th scope="col">Команда 1</th>
-                <th scope="col">Команда 2</th>
+                <th scope="col">Вид спорта</th>
+                <th scope="col">Первая команда</th>
+                <th scope="col">Вторая команда</th>
                 <th scope="col">Дата</th>
                 <th scope="col">Время</th>
-                <th scope="col">Status</th>
+                <th scope="col">Статус</th>
                 <th scope="col">Live</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Действия</th>
               </tr>
             </thead>
             <tbody>

@@ -88,6 +88,7 @@ class BetController extends Controller
             }
             $bet->save();
             $phone->update();
+            $this->sessionStorage->clear();
             return $this->redirect('/bet/success');
         }
         return $this->render('third-step', [
