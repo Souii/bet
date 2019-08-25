@@ -52,8 +52,12 @@ class BetController extends Controller
 
     public function actionSecondStep()
     {
-        if ($this->sessionStorage->isEmpty() || !$match->canBet()) {
+        if ($this->sessionStorage->isEmpty()) {
             return $this->goHome();
+        }
+        $match = $this->findMatch($this->sessionStorage->get('match_id'));
+        if (!$match->canBet()) {
+            return $this->goBack();
         }
         $model = new SecondStepForm($this->sessionStorage->get('match_id'));
 
@@ -69,8 +73,12 @@ class BetController extends Controller
 
     public function actionThirdStep()
     {
-        if ($this->sessionStorage->isEmpty() || !$match->canBet()) {
+        if ($this->sessionStorage->isEmpty()) {
             return $this->goHome();
+        }
+        $match = $this->findMatch($this->sessionStorage->get('match_id'));
+        if (!$match->canBet()) {
+            return $this->goBack();
         }
         $model = new DynamicModel(['agree']);
         $model->addRule('agree', 'required', ['message' => 'Вы должны принять пользовательское соглашение'])
@@ -93,7 +101,7 @@ class BetController extends Controller
         }
         return $this->render('third-step', [
             'model' => $model,
-            'match' => $this->findMatch($this->sessionStorage->get('match_id')),
+            'match' => $match,
             'outcome' => $this->sessionStorage->get('outcome'),
             'amount' => $this->sessionStorage->get('amount'),
             'coef' => $this->sessionStorage->get('coef')
