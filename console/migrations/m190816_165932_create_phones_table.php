@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%phones}}`.
  */
-class m190702_084312_create_phones_table extends Migration
+class m190816_165932_create_phones_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -14,10 +14,10 @@ class m190702_084312_create_phones_table extends Migration
     {
         $this->createTable('{{%phones}}', [
             'id' => $this->primaryKey(),
-            'phone' => $this->string(10)->notNull(),
-      			'operator' => $this->string(1)->notNull(),
+            'phone_number' => $this->string(10)->notNull(),
+      			'operator' => $this->string()->notNull(),
       			'balance' => $this->integer()->notNull(),
-      			'status' => $this->tinyInteger()->notNull(),
+      			'status' => $this->string()->notNull(),
         ]);
     }
 

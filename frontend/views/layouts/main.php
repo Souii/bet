@@ -9,7 +9,6 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-use frontend\models\Match;
 
 AppAsset::register($this);
 ?>
@@ -30,17 +29,16 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Ставки на спорт',
+        'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [];
-    foreach (Match::getDisciplines() as $title => $key) {
-      $menuItems[] = ['label' => $title, 'url' => ['/discipline/' . $key]];
-    }
-
+    $menuItems = [
+      ['label' => 'Главная', 'url' => ['/site/index']],
+      ['label' => 'Правила', 'url' => ['/site/terms']],
+    ];
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
@@ -50,10 +48,6 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>

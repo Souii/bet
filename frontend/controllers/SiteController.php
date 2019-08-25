@@ -2,10 +2,10 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Match;
+use common\models\Match;
 use yii\web\Controller;
-use Carbon\Carbon;
 use yii\web\NotFoundHttpException;
+use common\models\Category;
 
 
 /**
@@ -13,7 +13,7 @@ use yii\web\NotFoundHttpException;
  */
 class SiteController extends Controller
 {
-  
+
     public function actions()
      {
          return [
@@ -23,30 +23,26 @@ class SiteController extends Controller
          ];
      }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-     public function actionIndex()
-     {
-         $matches = Match::find()->upcoming()->orderBy('start_date ASC')->all();
+    public function actionIndex()
+    {
+        $categories = Category::find()->all();
 
-         return $this->render('index', [
-           'matches' => $matches,
-           'disciplines' => Match::getDisciplines()
-         ]);
-     }
+        return $this->render('index', [
+            'categories' => $categories,
+        ]);
+    }
 
-     public function actionDiscipline($id)
-     {
-       if(!Match::isCorrectDiscipline($id))
-        throw new NotFoundHttpException("Страница не найдена.");
-        
-       $matches = Match::find()->upcoming($id)->orderBy('start_date ASC')->all();
+    public function actionTerms()
+    {
+        return $this->render('terms');
+    }
 
-       return $this->render('index', [
-         'matches' => $matches,
-       ]);
-     }
+    public function actionMatches($category)
+    {
+        $matches = Match::find()->upcoming($category)->orderBy('start_date ASC')->all();
+
+        return $this->render('matches', [
+          'matches' => $matches
+        ]);
+    }
 }

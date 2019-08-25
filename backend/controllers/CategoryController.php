@@ -11,7 +11,7 @@ use common\models\Category;
 /**
  * Site controller
  */
-class SiteController extends Controller
+class CategoryController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -27,7 +27,7 @@ class SiteController extends Controller
             //             'allow' => true,
             //         ],
             //         [
-            //             'actions' => ['logout', 'index', 'new-category', 'edit-category'],
+            //             'actions' => ['logout', 'index', 'add', 'edit'],
             //             'allow' => true,
             //             'roles' => ['@'],
             //         ],
@@ -61,41 +61,36 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $categories = Category::find()->all();
+
+        return $this->render('index', [
+            'categories' => $categories
+        ]);
     }
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
+    public function actionAdd()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        $category = new Category();
+
+        if ($category->load(Yii::$app->request->post()) && $category->save()) {
+            return $this->redirect(['index']);
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
-
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('add', [
+            'category' => $category,
+        ]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
+    public function actionEdit($id)
     {
-        Yii::$app->user->logout();
+        $category = Category::findOne($id);
 
-        return $this->goHome();
+        if ($category->load(Yii::$app->request->post()) && $category->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('edit', [
+            'category' => $category,
+        ]);
     }
 }

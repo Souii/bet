@@ -43,8 +43,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-              '' => 'site/index',
-              'discipline/<id:\d+>' => '/site/discipline',
+              '/<discipline:\w+>' => 'site/index',
               'bet/first-step/<id:\d+>' => '/bet/first-step'
             ],
         ],

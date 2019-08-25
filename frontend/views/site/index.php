@@ -1,45 +1,40 @@
 <?php
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
+use yii\helpers\Html;
+use yii\bootstrap\Modal;
 
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="body-content">
-      <div class="container">
+  <div class="jumbotron">
+    <h1>Добро пожаловать на Yiibet!</h1>
 
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Команда 1</th>
-                <th scope="col">Команда 2</th>
-                <th scope="col">Дата</th>
-                <th scope="col">Время</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($matches as $match): ?>
+    <p class="lead">Выберите вид спорта.</p>
+</div>
 
-              <tr>
+<div>
+    <?php foreach ($categories as $category): ?>
+        <div class="col-lg-5" style="margin: 1em; padding-left: 10%">
+            <?= Html::img("@web/images/$category->name.png", ['alt' => $category->name, 'width' => 300, 'height' => 300]) ?>
 
-                <td><?=$match->team_1?></td>
-                <td><?=$match->team_2?></td>
-                <td><?=$match->getDate()?></td>
-                <td><?=$match->getTime()?></td>
+            <?php
+                Modal::begin([
+                    'header' => '<h2>Внимание!</h2>',
+                    'toggleButton' => [
+                        'label' => "<h3>$category->name</h3>",
+                        'tag' => 'a',
+                    ],
+                ]);
+            ?>
+            <p>Переходя по ссылке, вы подтверждаете, что вам исполнилось 18 лет
+            и вы ознакомлены с <a href="/site/terms">Пользовательским соглашением</a></p>
 
-                <td><a href="<?= Url::to(['bet/first-step/' . $match->id])?>" class="btn btn-primary m-0">Сделать ставку</a></td>
+            <a href="/site/matches?category=<?=$category->id?>" class="btn btn-success">Подтвердить и перейти</a>
 
-              </tr>
-
-            <?php endforeach;?>
-            </tbody>
-          </table>
-      </div>
-
-
-
-
-    </div>
+            <?php Modal::end(); ?>
+        </div>
+    <?php endforeach; ?>
+</div>
 </div>

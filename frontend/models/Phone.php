@@ -25,7 +25,7 @@ class Phone extends \yii\db\ActiveRecord
 
     public static function findByNumber($phone_number)
     {
-        $phone = self::find()->where(['phone' => $phone_number])->one();
+        $phone = self::find()->where(['phone_number' => $phone_number])->one();
 
         if ($phone === null) {
             throw new \DomainException('Некорректный номер телефона');
@@ -37,7 +37,7 @@ class Phone extends \yii\db\ActiveRecord
 
   	public function isActive()
     {
-        return $this->status === self::STATUS_ACTIVE;
+        return intval($this->status) === self::STATUS_ACTIVE;
     }
 
     public function writeOffs($amount)

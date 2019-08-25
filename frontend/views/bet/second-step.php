@@ -12,11 +12,9 @@ $this->title = 'My Yii Application';
         <div class="col-md-4  col-md-offset-4 text-center">
             <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'phone_number')->textInput(['placeholder' => '+7'])->hint('Сумма ставки списывается с баланса телефона.') ?>
+                <?= $form->field($model, 'phoneNumber')->textInput(['placeholder' => '+7'])->hint('Сумма ставки списывается с баланса телефона.') ?>
 
                 <?= $form->field($model, 'amount')->textInput() ?>
-
-                <?= $form->field($model, 'agree')->checkbox(['label' => 'Я согласен с условиями пользовательского соглашения', 'checked' => true]) ?>
 
                 <div class="form-group">
                     <?= Html::submitButton('Продолжить', ['class' => 'btn btn-primary', 'name' => 'confirm-button']) ?>

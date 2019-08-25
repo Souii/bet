@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%bet}}`.
  */
-class m190618_070338_create_bet_table extends Migration
+class m190816_170021_create_bet_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,19 @@ class m190618_070338_create_bet_table extends Migration
             'match_id' => $this->integer()->notNull(),
             'phone_number' => $this->string()->notNull(),
             'amount' => $this->integer()->notNull(),
-            'outcome' => $this->tinyInteger()->notNull()
+            'outcome' => $this->string()->notNull(),
+            'coef' => $this->float()->notNull(),
+            'status' => $this->string()->notNull(),
         ]);
+
+        $this->addForeignKey(
+             'fk-bet-match_id',
+             'bet',
+             'match_id',
+             'matches',
+             'id',
+             'CASCADE'
+         );
     }
 
     /**
@@ -26,6 +37,10 @@ class m190618_070338_create_bet_table extends Migration
      */
     public function safeDown()
     {
+      $this->dropForeignKey(
+             'fk-bet-match_id',
+             'bet'
+         );
         $this->dropTable('{{%bet}}');
     }
 }
