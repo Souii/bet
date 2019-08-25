@@ -95,7 +95,8 @@ class BetController extends Controller
             'model' => $model,
             'match' => $this->findMatch($this->sessionStorage->get('match_id')),
             'outcome' => $this->sessionStorage->get('outcome'),
-            'amount' => $this->sessionStorage->get('amount')
+            'amount' => $this->sessionStorage->get('amount'),
+            'coef' => $this->sessionStorage->get('coef')
         ]);
     }
 

@@ -21,6 +21,7 @@ $this->title = 'My Yii Application';
           </table>
           <p align="center">Исход: <?=$outcome?></p>
           <p align="center">Сумма: <?=$amount?></p>
+          <p align="center">Сумма в случае выигрыша: <?=$amount * $coef?></p>
         </div></div>
 
     <div class="row">
