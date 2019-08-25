@@ -52,7 +52,7 @@ class BetController extends Controller
 
     public function actionSecondStep()
     {
-        if ($this->sessionStorage->isEmpty()) {
+        if ($this->sessionStorage->isEmpty() || !$match->canBet()) {
             return $this->goHome();
         }
         $model = new SecondStepForm($this->sessionStorage->get('match_id'));
@@ -69,7 +69,7 @@ class BetController extends Controller
 
     public function actionThirdStep()
     {
-        if ($this->sessionStorage->isEmpty()) {
+        if ($this->sessionStorage->isEmpty() || !$match->canBet()) {
             return $this->goHome();
         }
         $model = new DynamicModel(['agree']);
