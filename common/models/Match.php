@@ -170,9 +170,9 @@ class Match extends ActiveRecord
     public function getOutcomes()
     {
         return [
-            $this->details->first_team => $this->details->first_team,
-            $this->details->second_team => $this->details->second_team,
-            self::OUTCOME_DRAW => self::OUTCOME_DRAW,
+            $this->details->first_team,
+            $this->details->second_team,
+            self::OUTCOME_DRAW,
         ];
     }
 
@@ -187,6 +187,8 @@ class Match extends ActiveRecord
 
           case self::OUTCOME_DRAW:
             return $this->draw_coef;
+
+          default: return false;
         }
     }
 }

@@ -32,8 +32,7 @@ class FinishMatchForm extends Model
 
     public function validateOutcome($attribute, $params)
     {
-        if (!in_array($this->outcome, [$this->match->details->first_team,
-                      $this->match->details->second_team, Bet::OUTCOME_DRAW])) {
+        if (!in_array($this->outcome, $this->match->getOutcomes())) {
             $this->addError($attribute, 'Incorrect outcome');
         }
     }

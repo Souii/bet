@@ -15,7 +15,7 @@ $this->title = 'My Yii Application';
 
               <?= $form->field($model, 'secondTeamScore')?>
 
-                  <?= $form->field($model, 'outcome')->radioList($outcomes)?>
+                  <?= $form->field($model, 'outcome')->radioList(array_combine($match->getOutcomes(),$match->getOutcomes()))?>
 
               <div class="form-group">
                   <?= Html::submitButton('Продолжить', ['class' => 'btn btn-primary', 'name' => 'confirm-button']) ?>

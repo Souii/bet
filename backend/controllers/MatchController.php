@@ -179,7 +179,7 @@ class MatchController extends Controller
         }
         return $this->render('finish', [
             'model' => $model,
-            'outcomes' => $match->getOutcomes()
+            'match' => $match
         ]);
     }
 

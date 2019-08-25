@@ -26,7 +26,7 @@ $this->title = 'Bet';
         <div class="col-md-6 col-md-offset-3 text-center">
 
           <?php $form = ActiveForm::begin(); ?>
-            <?= $form->field($model, 'outcome')->radioList($match->getOutcomes())?>
+            <?= $form->field($model, 'outcome')->radioList(array_combine($match->getOutcomes(),$match->getOutcomes()))?>
 
             <div class="form-group">
                 <?= Html::submitButton('Продолжить', ['class' => 'btn btn-primary', 'name' => 'confirm-button']) ?>

@@ -34,7 +34,7 @@ class FirstStepForm extends Model
 
     public function validateOutcome($attribute, $params)
     {
-        if (!$this->getCoef()) {
+        if ($this->getCoef() === false) {
             $this->addError($attribute, 'Incorrect outcome');
         }
     }
